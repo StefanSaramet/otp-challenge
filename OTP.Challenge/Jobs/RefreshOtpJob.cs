@@ -1,12 +1,11 @@
 ﻿using Quartz;
 
-namespace OTP.Challenge.Jobs
+namespace OTP.Challenge.Jobs;
+
+public class RefreshOtpJob : IJob
 {
-    public class RefreshOtpJob : IJob
+    public Task Execute(IJobExecutionContext context)
     {
-        public Task Execute(IJobExecutionContext context)
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
     }
 }

@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-namespace OTP.Challenge.Hubs
+namespace OTP.Challenge.Hubs;
+
+public class ResetOtpHub : Hub
 {
-    public class ResetOtpHub : Hub
-    {
-    }
 }
