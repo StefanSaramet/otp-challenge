@@ -1,8 +1,6 @@
 using Otp.Challenge.PasswordGeneration;
 using Otp.Challenge.Persistence;
 using OTP.Challenge.Hubs;
-using OTP.Challenge.Jobs;
-using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,14 +12,6 @@ builder.Services.AddSignalR();
 
 builder.Services.AddSingleton<IOtpRepository, OtpRepository>();
 builder.Services.AddSingleton<IOtpGenerator, OtpGenerator>();
-
-builder.Services.AddQuartz(config =>
-{
-    config.UseMicrosoftDependencyInjectionJobFactory();
-
-    var changeUserOtpJob = new JobKey("ChangeUserOtp");
-    config.AddJob<RefreshOtpJob>(opts => opts.WithIdentity(changeUserOtpJob));
-});
 
 var app = builder.Build();
 
