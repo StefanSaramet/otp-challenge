@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Otp.Challenge.Persistence;
 using OTP.Challenge.Models;
+using Quartz.Spi;
 
 namespace OTP.Challenge.Controllers;
 
@@ -7,9 +9,15 @@ namespace OTP.Challenge.Controllers;
 [Route("[controller]")]
 public class OtpController : ControllerBase
 {
-    public OtpController()
-    {
+    private readonly IOtpRepository otpRepository;
+    private readonly IJobFactory jobFactory;
 
+    public OtpController(
+        IOtpRepository otpRepository, 
+        IJobFactory jobFactory)
+    {
+        this.otpRepository = otpRepository;
+        this.jobFactory = jobFactory;
     }
 
     [HttpPost("generate")]
