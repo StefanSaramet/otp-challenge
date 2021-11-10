@@ -1,3 +1,5 @@
+using Otp.Challenge.PasswordGeneration;
+using Otp.Challenge.Persistence;
 using OTP.Challenge.Hubs;
 using OTP.Challenge.Jobs;
 using Quartz;
@@ -8,7 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSignalR() ;
+builder.Services.AddSignalR();
+
+builder.Services.AddSingleton<IOtpRepository, OtpRepository>();
+builder.Services.AddSingleton<IOtpGenerator, OtpGenerator>();
 
 builder.Services.AddQuartz(config =>
 {

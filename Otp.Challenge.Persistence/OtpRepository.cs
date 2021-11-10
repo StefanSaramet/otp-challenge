@@ -19,6 +19,12 @@ public class OtpRepository : IOtpRepository
         return collection.DeleteMany(x => x.UserId == id) != 0;
     }
 
+    public Entities.Otp GetById(Guid userId)
+    {
+        var collection = dB.GetCollection<Entities.Otp>(OtpCollectionName);
+        return collection.FindOne(x => x.UserId == userId);
+    }
+
     public Entities.Otp GetByTimeFrame(TimeOnly time)
     {
         var collection = dB.GetCollection<Entities.Otp>(OtpCollectionName);
@@ -29,8 +35,7 @@ public class OtpRepository : IOtpRepository
     public bool Insert(Entities.Otp entity)
     {
         var collection = dB.GetCollection<Entities.Otp>(OtpCollectionName);
-        collection.EnsureIndex(x => x.UserId, true);
-        
+
         return collection.Upsert(entity);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Otp.Challenge.PasswordGeneration;
 using Otp.Challenge.Persistence;
 using OTP.Challenge.Models;
 using Quartz.Spi;
@@ -9,30 +10,40 @@ namespace OTP.Challenge.Controllers;
 [Route("[controller]")]
 public class OtpController : ControllerBase
 {
-    private readonly IOtpRepository otpRepository;
-    private readonly IJobFactory jobFactory;
+    private readonly IOtpGenerator _otpGenerator;
+    private readonly IOtpRepository _otpRepository;
+    private readonly IJobFactory _jobFactory;
 
     public OtpController(
+        IOtpGenerator otpGenerator,
         IOtpRepository otpRepository, 
         IJobFactory jobFactory)
     {
-        this.otpRepository = otpRepository;
-        this.jobFactory = jobFactory;
+        this._otpGenerator = otpGenerator;
+        this._otpRepository = otpRepository;
+        this._jobFactory = jobFactory;
     }
 
-    [HttpPost("generate")]
-    public GenerateOtpResponseModel GenerateOtp([FromBody] GenerateOtpRequestModel otpRequestModel)
+    [HttpPost("generate/{userId}")]
+    public GenerateOtpResponseModel GenerateOtp(Guid userId)
     {
         //generate new otp
+        var otp = _otpGenerator.Compute(userId);
+
+        var test = _otpGenerator.IsValid(userId, otp.OtpPass);
         //start quartz job
-        //persist otp
-        return new GenerateOtpResponseModel();
+        //var job = _jobFactory.NewJob()
+        
+        return new GenerateOtpResponseModel
+        {
+            Otp = otp.OtpPass,
+            ValidUntil = new TimeOnly(0, 0, otp.RemainingSeconds).ToLongTimeString()
+        };
     }
 
     [HttpPost("stop/{userId}")]
     public void StopOtpGeneration(Guid userId)
     {
         //stop quartz job
-        //delete otp for userid
     }
 }
