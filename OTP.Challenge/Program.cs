@@ -1,5 +1,4 @@
 using Otp.Challenge.PasswordGeneration;
-using OTP.Challenge.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,10 +26,5 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapHub<ResetOtpHub>("/resetotp");
-});
 
 app.Run();

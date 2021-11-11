@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Otp.Challenge.PasswordGeneration\Otp.Challenge.PasswordGeneration.csproj" />
-    <ProjectReference Include="..\Otp.Challenge.Persistence\Otp.Challenge.Persistence.csproj" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
