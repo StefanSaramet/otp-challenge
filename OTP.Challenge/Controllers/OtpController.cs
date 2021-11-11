@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Otp.Challenge.PasswordGeneration;
-using Otp.Challenge.Persistence;
 using OTP.Challenge.Models;
 
 namespace OTP.Challenge.Controllers;
@@ -10,17 +9,14 @@ namespace OTP.Challenge.Controllers;
 public class OtpController : ControllerBase
 {
     private readonly IOtpGenerator _otpGenerator;
-    private readonly IOtpRepository _otpRepository;
 
     public OtpController(
-        IOtpGenerator otpGenerator,
-        IOtpRepository otpRepository)
+        IOtpGenerator otpGenerator)
     {
         this._otpGenerator = otpGenerator;
-        this._otpRepository = otpRepository;
     }
 
-    [HttpPost("generate/{userId}")]
+    [HttpGet("generate/{userId}")]
     public GenerateOtpResponseModel GenerateOtp(Guid userId)
     {
         //generate new otp
@@ -29,7 +25,7 @@ public class OtpController : ControllerBase
         return new GenerateOtpResponseModel
         {
             Otp = otp.OtpPass,
-            ValidUntil = new TimeOnly(0, 0, otp.RemainingSeconds).ToLongTimeString()
+            ValidFor = otp.RemainingSeconds
         };
     }    
 }
