@@ -18,7 +18,7 @@ const PROXY_CONFIG = [
     secure: false,
   },
   {
-    context: ["/generate/specific/date"],
+    context: ["/otp/generate/specific/date"],
     target: target,
     secure: false,
   },
