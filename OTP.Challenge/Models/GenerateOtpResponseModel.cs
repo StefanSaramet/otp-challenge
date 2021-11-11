@@ -3,5 +3,5 @@
 public class GenerateOtpResponseModel
 {
     public string Otp { get; set; }
-    public string ValidUntil { get; set; }
+    public int ValidFor { get; set; }
 }
