@@ -27,5 +27,18 @@ public class OtpController : ControllerBase
             Otp = otp.OtpPass,
             ValidFor = otp.RemainingSeconds
         };
-    }    
+    }
+
+    [HttpPost("generate/specific/date")]
+    public GenerateOtpResponseModel GenerateOtpForDate([FromBody] GenerateOtpRequestModel model)
+    {
+        //generate new otp
+        var otp = _otpGenerator.Compute(model.UserId, model.RequestedDate);
+
+        return new GenerateOtpResponseModel
+        {
+            Otp = otp.OtpPass,
+            ValidFor = otp.RemainingSeconds
+        };
+    }
 }
