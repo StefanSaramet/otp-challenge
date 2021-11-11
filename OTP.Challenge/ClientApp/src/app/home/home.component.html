@@ -13,6 +13,19 @@
       </label>
     </div>
 
+    <div class="form-group">
+      <label class="center-block"
+        >Date:
+        <input
+          class="form-control"
+          formControlName="date"
+          class="user-id-input"
+          type="date"
+          placeholder="Please input a value to start OTP generation"
+        />
+      </label>
+    </div>
+
     <div
       *ngIf="
         userIdForm.controls['userId'].invalid &&

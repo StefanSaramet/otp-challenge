@@ -17,6 +17,11 @@ const PROXY_CONFIG = [
     target: target,
     secure: false,
   },
+  {
+    context: ["/generate/specific/date"],
+    target: target,
+    secure: false,
+  },
 ];
 
 module.exports = PROXY_CONFIG;
