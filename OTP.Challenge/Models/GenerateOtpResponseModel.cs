@@ -2,6 +2,6 @@
 
 public class GenerateOtpResponseModel
 {
-    public string Otp { get; set; }
-    public int ValidFor { get; set; }
+    public string Otp { get; init; }
+    public int ValidFor { get; init; }
 }
