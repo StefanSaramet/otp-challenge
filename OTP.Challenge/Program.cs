@@ -1,5 +1,4 @@
 using Otp.Challenge.PasswordGeneration;
-using Otp.Challenge.Persistence;
 using OTP.Challenge.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +9,6 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSignalR();
 
-builder.Services.AddSingleton<IOtpRepository, OtpRepository>();
 builder.Services.AddSingleton<IOtpGenerator, OtpGenerator>();
 
 var app = builder.Build();
